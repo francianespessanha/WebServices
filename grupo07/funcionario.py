@@ -30,14 +30,3 @@ serv.registerFunction(consultarFuncionario)
 serv.registerFunction(cadastrarFuncionario)
 
 serv.serve_forever()
-=======
-#encoding:utf-8
-
-from SOAPpy import SOAPServer
-
-server = SOAPServer(("localhost",8080))
-
-
-
-
->>>>>>> 24834b54d569b2d183d0550eae357e9d7e15c7bc
