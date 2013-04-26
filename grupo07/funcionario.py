@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 from SOAPpy import SOAPServer
 db = 'Funcionario.txt'
 def consultarFuncionario(codigoFuncionario):
