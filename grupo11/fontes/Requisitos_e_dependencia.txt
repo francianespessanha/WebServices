@@ -1,0 +1,35 @@
+REquisitos:
+
+Grupo 11
+calcularComissao(Comissão)
+Comissão = {codigoComissao,codigoFuncionario,ano,mes,valor}
+
+consultarComissaoFuncionario( codigoFuncionario,ano,mes)
+
+deletaComissaoFuncionario(codigoFuncionario,ano,mes)
+
+
+
+
+
+
+Dependencias:
+
+Grupo 07
+cadastrarFuncionario(Funcionario)
+Funcionario = {codigoFuncionario,nome,endereco,sexo,datanascimento}
+
+consultatFuncionario(codigoFuncionario)
+
+
+
+
+Grupo 08
+
+ cadastrarVenda(Venda)
+    Venda = {codigoVenda,codigoCliente,codigoFuncionario,data,valortotal,{codigoProduto,quantidade}}
+
+consultarVenda(codigoVenda)
+
+deletarVenda(codigoVenda)
+Verificar se ja existe contas a receber
