@@ -1,13 +1,13 @@
 #cadastrarContaAreceber(ContasAreceber)
 #ContasArecebe = {codigoAreceber, codigoVenda,dataVencimento,
 #dataPagamento, status}
-
 #conssultarAreceber(codigoAreceber)
 #deletarAreceber(codigoAreceber)
 
-#from SOAPpy import SOAPProxy
+from SOAPpy import SOAPProxy, SOAPServer
 arquivo = 'basededados.txt'
-#conta = {'codigoAreceber':'0001','codigoVenda':'0001','dataVencimento':'20/05/2013','dataPagamento':'','status':'pendente'}
+#
+conta = {'codigoAreceber':'0001','codigoVenda':'0001','dataVencimento':'20/05/2013','dataPagamento':'','status':'pendente'}
 def cadastrarContaAreceber(contasAReceber):
     contasAReceber['codigoAreceber']
     #servico = SOAPProxy("http://localhost:8080")
@@ -43,7 +43,33 @@ def consultarAreceber(codigoAreceber):
     return False
     
 def deletarAreceber(codigoAreceber):
-    pass
+    try:
+        conexao = open(arquivo, 'r')
+    except:
+        return False
+    dados = conexao.read()
+    conexao.close()
+    conexao = open(arquivo, 'w')
+    linhas = dados.split('\n')
+    apagou = False
+    for linha in linhas:
+        if linha == '':
+            break
+        arrayLinha = linha.split('|')
+        if arrayLinha[0] == codigoAreceber:
+            apagou = True
+        else:
+            conexao.write('%s|%s|%s|%s|%s\n'%(arrayLinha[0],arrayLinha[1],arrayLinha[2],arrayLinha[3],arrayLinha[4]))
+    conexao.close()
+    return apagou
 
 def converterLinhaParaDicionario(array):
     return {'codigoAreceber':array[0],'codigoVenda':array[1],'dataVencimento':array[2],'dataPagamento':array[3],'status':array[4]}
+
+
+serv = SOAPServer(("localhost", 8080))
+serv.registerFunction(cadastrarContaAreceber)
+serv.registerFunction(consultarAreceber)
+serv.registerFunction(deletarAreceber)
+
+serv.serve_forever()
