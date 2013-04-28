@@ -1,5 +1,5 @@
 from SOAPpy import SOAPServer
-db = 'Funcionario.txt'
+db = 'Funcionarios.txt'
 def consultarFuncionario(codigoFuncionario):
     try:
         linhas = open(db,'r').read()
@@ -16,15 +16,21 @@ def consultarFuncionario(codigoFuncionario):
     return False
 
 def cadastrarFuncionario(Funcionario):
-    if consultarFuncionario(Funcionario):
+    if consultarFuncionario(Funcionario[0]):
         return False
     conexao = open(db,'a')
-    conexao.write('%d|%s|%s|%s|%s\n' %(funcionario['codigoFuncionario'],nome['nome'], endereco['endereco'],sexo['sexo'],datanascimento['datanascimento']))
+    conexao.write('%s|%s|%s|%s|%s\n' %(funcionario['codigoFuncionario'],nome['nome'], endereco['endereco'],sexo['sexo'],datanascimento['datanascimento']))
     conexao.close()
     return True
 
-serv = SOAPServer(("localhost", 8080))
+def deletarFuncionario(codigo):
+    if consultarFuncionario(codigo):
+        return False
+
+
+serv = SOAPServer(("localhost", 8087))
 serv.registerFunction(consultarFuncionario)
 serv.registerFunction(cadastrarFuncionario)
+serv.registerFunction(deletarFuncionario)
 
 serv.serve_forever()
