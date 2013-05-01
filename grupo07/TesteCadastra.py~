@@ -1,0 +1,19 @@
+db = 'Funcionario.txt'
+
+def cadastrarFuncionario(Funcionario):
+   if consultarFuncionario(Funcionario):
+       return False
+   conexao = open(db,'a')
+   conexao.write('%d|%s|%s|%s|%s\n' %(funcionario['codigoFuncionario'],nome['nome'], endereco['endereco'],sexo['sexo'],datanascimento['datanascimento']))
+   conexao.close()
+   return True
+
+codigo = input("Codigo: ")
+nome = raw_input("Nome: ")
+endereco = raw_input("Endereco: ")
+sexo = raw_input("Sexo: ")
+dataNascimento = raw_input("Data de Nascimento: ")
+
+funcionario = {"codigoFuncionario":codigo,"nome":nome,"endereco":endereco,"sexo":sexo,"datanascimento":dataNascimento}
+
+cadastrarFuncionario(funcionario)

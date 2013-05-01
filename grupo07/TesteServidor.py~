@@ -1,0 +1,28 @@
+#coding: utf-8
+
+import unittest
+from should_dsl import should
+from Funcionario import Funcionario
+
+class TesteServidor(unittest.TestCase):
+    def setUp(self):
+        self.func = Funcionario("funcionarios.txt")
+        self.dados = {"codigoFuncionario":1, "nome":"Filipe", "endereco":"Arantes", "sexo":"m", "datanascimento":"00/00/00"}
+        self.dados11 = {"codigoFuncionario":11, "nome":"Filipe", "endereco":"Arantes", "sexo":"m", "datanascimento":"00/00/00"}
+
+    def teste_consulta_se_ha_funcionario_cadastrado(self):
+        self.func.consultarFuncionario(1) |should| equal_to(self.dados)
+        self.func.consultarFuncionario(30) |should| equal_to(False)
+#    
+#    def teste_cadastrar_funcionario_existente(self):
+#        self.func.cadastrarFuncionario(self.dados) |should| equal_to(False)
+#        
+#    def teste_cadastrar_funcionario_inexistente(self):
+#        self.func.cadastrarFuncionario(self.dados11) |should| equal_to(True)
+        
+    
+        
+
+    
+if __name__=="__main__":
+    unittest.main()
