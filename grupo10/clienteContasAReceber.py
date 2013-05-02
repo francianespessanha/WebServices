@@ -20,7 +20,12 @@ def cadastrarConta():
     dtPag    = raw_input("Data do pagamento: ")
     status   = raw_input("Status: ")
     conta = {'codigoAreceber':codConta,'codigoVenda':codVenda,'dataVencimento':dtVenc,'dataPagamento':dtPag,'status':status}
-    if sp.cadastrarContaAreceber(conta):
+    try:
+        retorno = sp.cadastrarContaAreceber(conta)
+    except:
+        print "Ocorreu um erro ao tentar gravar a conta"
+        return False
+    if retorno:
         print "Conta cadastrada com sucesso"
     else:
         print "Ocorreu um erro ao tentar gravar a conta"
@@ -29,7 +34,11 @@ def consultarConta():
     print "--Consulta de conta a receber--"
     print ""
     codConta = raw_input("Digite o codigo da conta: ")
-    retorno = sp.consultarAreceber(codConta)
+    try:
+        retorno = sp.consultarAreceber(codConta)
+    except:
+        print "Ocorreu um erro ao consultar"
+        return False
     if retorno:
         print "Conta encontrada"
         print ""

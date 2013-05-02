@@ -5,6 +5,7 @@
 #deletarAreceber(codigoAreceber)
 
 from SOAPpy import SOAPProxy, SOAPServer
+from threading import Thread
 arquivo = 'basededados.txt'
 #
 conta = {'codigoAreceber':'0001','codigoVenda':'0001','dataVencimento':'20/05/2013','dataPagamento':'','status':'pendente'}
@@ -67,9 +68,15 @@ def converterLinhaParaDicionario(array):
     return {'codigoAreceber':array[0],'codigoVenda':array[1],'dataVencimento':array[2],'dataPagamento':array[3],'status':array[4]}
 
 
-serv = SOAPServer(("localhost", 8080))
-serv.registerFunction(cadastrarContaAreceber)
-serv.registerFunction(consultarAreceber)
-serv.registerFunction(deletarAreceber)
+def iniciarServico():
+    serv = SOAPServer(("localhost", 8080))
+    serv.registerFunction(cadastrarContaAreceber)
+    serv.registerFunction(consultarAreceber)
+    serv.registerFunction(deletarAreceber)
+    serv.serve_forever()
+    print "Servico iniciado"
 
-serv.serve_forever()
+t = Thread(target=iniciarServico)
+t.start()
+raw_input("Aperte enter para terminar")
+t._Thread__stop()
