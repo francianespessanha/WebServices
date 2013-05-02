@@ -3,15 +3,14 @@
 from SOAPpy import SOAPProxy
 
 # conectando diretamente
-servico = SOAPProxy("http://localhost:8080")
-usuario = raw_input('Usuario: ')
-senha = raw_input('Senha: ')
+servico = SOAPProxy("http://localhost:8005")
+codigo = raw_input('Codigo: ')
+nome = raw_input('Nome: ')
+contato = raw_input('Contato: ')
 
-user ={'usuario':usuario,'senha':senha}
+cliente ={'codigo':codigo,'nome':nome,'contato':contato}
+servico.cadastrar(cliente)
 
-if servico.login(user):
-    print 'Login efetuado com sucesso'
-else:
-    print 'O usuario nao existe ainda, cadastrando'
-    servico.registra(user)
+codigo1 = raw_input('codigo: ')
+servico.consultaCliente(codigo1)
 

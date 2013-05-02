@@ -3,27 +3,30 @@ from SOAPpy import SOAPServer
 banco = 'clientes.txt'
 
 def cadastrar(cliente):
-    if consultaCliente(cliente):
-        return False
-	 codigo = rand(10)
+#    if consultaCliente(cliente):
+#    	return False
+
     arquivo = open(banco,'a')
-    arquivo.write('%s|%s\n' %
-  (cliente['codigo'],cliente['nome'],cliente['contato']))
+    arquivo.write('%s|%s|%s\n' %(cliente['codigo'],
+    				cliente['nome'],
+				cliente['contato']
+				)
+			)
     arquivo.close()
-    return True
+    return arquivo 
 
-def consultaCliente(cliente):
+def consultaCliente(codigo1):
+	arquivo= {}
+	arquivos = open(banco,'r').readlines()
 
-	arquivo = open(banco,'r')
-	arquivo.read()
-
-	for arquivo in arquivos.split('\n'):        
+	for arquivo in arquivos:        
 		if arquivo == '':
+			print "Vazio"
 			break
 		codigo,nome,contato = arquivo.split('|')
-	return codigo
-	return nome
-	return contato	
+		if codigo['codigo'] == codigo1:
+			return True
+			print codigo,nome, contato
 	
 
 
@@ -38,6 +41,5 @@ def consultaCliente(cliente):
 serv = SOAPServer(("localhost", 8005))
 serv.registerFunction(cadastrar)
 serv.registerFunction(consultaCliente)
-
 serv.serve_forever()
 
