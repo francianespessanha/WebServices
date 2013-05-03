@@ -43,6 +43,21 @@ def consultarAreceber(codigoAreceber):
             return converterLinhaParaDicionario(arrayLinha)
     return False
     
+def existeContaParaVenda(codigoVenda):
+    try:
+        conexao = open(arquivo, 'r')
+    except:
+        return False
+    dados = conexao.read()
+    linhas = dados.split('\n')
+    for linha in linhas:
+        if linha == '':
+            break
+        arrayLinha = linha.split('|')
+        if arrayLinha[1] == codigoVenda:
+            return True
+    return False
+    
 def deletarAreceber(codigoAreceber):
     try:
         conexao = open(arquivo, 'r')
@@ -73,6 +88,7 @@ def iniciarServico():
     serv.registerFunction(cadastrarContaAreceber)
     serv.registerFunction(consultarAreceber)
     serv.registerFunction(deletarAreceber)
+    serv.registerFunction(existeContaParaVenda)
     serv.serve_forever()
     print "Servico iniciado"
 
