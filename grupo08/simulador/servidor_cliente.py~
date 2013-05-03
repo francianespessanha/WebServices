@@ -1,0 +1,19 @@
+from SOAPpy import SOAPServer
+
+def consultaProduto(codigoProduto):
+
+
+def consultarCliente(codigoCliente):
+
+
+def consultarFuncionario(codigoFuncionario):
+
+
+    
+    
+serv = SOAPServer(("localhost", 8080))
+serv.registerFunction(consultaProduto)
+serv.registerFunction(consultarCliente)
+serv.registerFunction(consultarFuncionario)
+
+serv.serve_forever()
